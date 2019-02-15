@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Movement control
  * ,-----------------------------------------------------------------------------------.
- * |UNWIND|  MOV |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |UNWIND|
+ * |      |  --  |  MOU |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      | Btn1 |  MsL |  MsU |  MsD |  MsR | Left | Down |  Up  | Right|  --  |  --  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MOV] = LAYOUT_planck_mit( \
-  UNWIND,  KC_NO,   MOU,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   MOU,     KC_NO,   UNWIND, \
+  UNWIND,  KC_NO,   MOU,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   UNWIND, \
   _______, KC_BTN1, KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO, \
   _______, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_NO,   KC_NO, \
   _______, _______, _______, KC_NO,   KC_NO,       UNWIND,       KC_NO,   KC_NO,   _______, _______, _______ \
@@ -116,19 +116,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Mouse control
  * ,-----------------------------------------------------------------------------------.
- * |UNWIND|  MOV |  MOU |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |UNWIND|
+ * |      |  MOV |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      | Btn1 |  MsL |  MsU |  MsD |  MsR | Left | Down |  Up  | Right|  --  |  --  |
+ * |      | Btn1 | Btn2 | Btn3 | Btn4 | Btn5 |  MsL | MsD  | MsU  | MsR  |  --  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  --  |  --  |  --  |  --  |  --  | Home | PgDn | PgUp | End  |  --  |  --  |
+ * |  --  |  --  |  --  |  --  |  --  |  --  |  WhL | WhD  | WhU  | WhR  |  --  |  --  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |  --  |  --  |    UNWIND   |  --  |  --  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_MOU] = LAYOUT_planck_mit( \
-  UNWIND,  MOV,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   MOV,     UNWIND, \
+  -------, MOV,     KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   _______, \
   _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO,   _______, \
-  KC_NO,   KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_NO,   KC_NO, \
+  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_NO,   KC_NO, \
   _______, _______, _______, KC_NO,   KC_NO,       UNWIND,       KC_NO,   KC_NO,   _______, _______, _______ \
 ),
 };
@@ -167,10 +167,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_MOU);
         layer_on(_MOV);
         control_layer = MOV;
-      /* } else { */
-      /*   layer_off(_MOV); */
-      /*   is_mov_on = false; */
-      /*   layer_on(_QWERTY); */
       }
     }
     return false;
@@ -184,10 +180,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_MOV);
         layer_on(_MOU);
         control_layer = MOU;
-      /* } else { */
-      /*   layer_off(_MOV); */
-      /*   is_mov_on = false; */
-      /*   layer_on(_QWERTY); */
       }
     }
     return false;
