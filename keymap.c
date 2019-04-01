@@ -6,7 +6,7 @@ extern keymap_config_t keymap_config;
 
 enum custom_layers {
   _QWERTY,
-  _PWERGQ,
+  _MOD1,
   _EXT,
   _CMD,
   _ADJUST,
@@ -16,7 +16,7 @@ enum custom_layers {
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
-  PWERGQ,
+  MOD1,
   EXT,
   CMD,
   ADJUST,
@@ -44,21 +44,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,         KC_SPACE,     EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \
 ),
 
-/* Pwergq
+/* Mod1
  * ,-----------------------------------------------------------------------------------.
- * | Shift|   P  |   W  |   E  |   R  |   G  |   Q  |   U  |   I  |   O  |   T  |Shift |
+ * | Shift|   Q  |   W  |   D  |   F  |   M  |   Y  |   U  |   I  |   O  |   P  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |   A  |   S  |   D  |   F  |   Y  |   H  |   J  |   K  |   L  |   ;  |Enter |
+ * | Esc  |   A  |   S  |   E  |   R  |   G  |   H  |   J  |   K  |   L  |   T  |Enter |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Tab  |   Z  |   X  |   M  |   C  |   V  |   B  |   N  |   ,  |   .  |   /  | Bspc |
+ * | Tab  |   ;  |   Z  |   X  |   C  |   V  |   B  |   N  |   ,  |   .  |   /  | Bspc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | Alt  | GUI  | CMD  | EXT  |    Space    | EXT  | CMD  | GUI  |  Alt | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
-[_PWERGQ] = LAYOUT_planck_mit( \
-  KC_LSFT, KC_P,    KC_W,    KC_E,    KC_R,    KC_G,    KC_Q,    KC_U,    KC_I,    KC_O,    KC_T,    KC_RSFT, \
-  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_Y,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT, \
-  KC_TAB,  KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_B,    KC_N,    KC_COMM, KC_DOT,  KC_SLSH, KC_BSPC, \
+[_MOD1] = LAYOUT_planck_mit( \
+  KC_LSFT, KC_Q,    KC_W,    KC_D,    KC_F,    KC_M,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
+  KC_ESC,  KC_A,    KC_S,    KC_E,    KC_R,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_T,    KC_ENT, \
+  KC_TAB,  KC_SCLN, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_COMM, KC_DOT,  KC_SLSH, KC_BSPC, \
   KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,         KC_SPACE,     EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \
 ),
 
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_mit( \
-  _______, MOV,     MOU,     KC_NO,   KC_NO,   KC_NO,   PWERGQ,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   _______, \
+  _______, MOV,     MOU,     KC_NO,   KC_NO,   KC_NO,   MOD1,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   _______, \
   _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO,   _______, \
   KC_NO,   KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_NO,   KC_SYSREQ, \
   _______, _______, _______, _______, _______,       KC_NO,      _______, _______, _______, _______, _______ \
@@ -157,7 +157,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define NO_CONTROL 0
 
 int control_layer = NO_CONTROL;
-int default_layer = _QWERTY;
+int default_layer = _MOD1;
+
+void keyboard_post_init_user(void) {
+  default_layer_set(1UL << default_layer);
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -216,10 +220,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       layer_on(_QWERTY);
     }
     return false;
-  case PWERGQ:
+  case MOD1:
     if (record->event.pressed) {
       if (default_layer == _QWERTY) {
-        default_layer = _PWERGQ;
+        default_layer = _MOD1;
       } else {
         default_layer = _QWERTY;
       }
