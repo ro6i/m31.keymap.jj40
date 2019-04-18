@@ -8,7 +8,8 @@ enum custom_layers {
   _QWERTY,
   _MOD1,
   _MOD2D,
-  _MOD2A,
+  _MOD2U,
+  _MOD2L,
   _EXT,
   _CMD,
   _ADJUST,
@@ -27,6 +28,9 @@ enum custom_keycodes {
   DLC_2,
   DLC_3
 };
+
+#define MOD2U OSL(_MOD2U)
+#define MOD2L OSL(_MOD2L)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
@@ -77,9 +81,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MOD2D] = LAYOUT_planck_mit( \
-  KC_LSFT, KC_P,    KC_C,    KC_U,    MO(_MOD2A),   CMD,     CMD,     MO(_MOD2A),   KC_L,    KC_D,    KC_M,    KC_RSFT, \
-  KC_ESC,  KC_A,    KC_S,    KC_E,    KC_T,    KC_G,    KC_H,    KC_I,    KC_O,    KC_N,    KC_R,    KC_ENT, \
-  KC_TAB,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_COMM, KC_DOT,  KC_BSPC, \
+  KC_LSFT, KC_Q,    MOD2U,   MOD2U,   MOD2U,   CMD,     CMD,     MOD2U,   MOD2U,   MOD2U,   KC_NO,   KC_RSFT, \
+  KC_ESC,  KC_A,    KC_E,    KC_S,    KC_T,    KC_G,    KC_H,    KC_N,    KC_R,    KC_I,    KC_O,    KC_ENT, \
+  KC_TAB,  KC_NO,   KC_NO,   MOD2L,   MOD2L,   KC_NO,   KC_NO,   MOD2L,   MOD2L,   KC_COMM, KC_DOT,  KC_BSPC, \
   KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,        KC_SPACE,      EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \
 ),
 
@@ -94,11 +98,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  | CMD  | EXT  |    Space    | EXT  | CMD  | GUI  |  Alt | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
-[_MOD2A] = LAYOUT_planck_mit( \
-  _______, KC_Q,    KC_Z,    KC_X,    _______, CMD,     CMD,     _______, KC_NO,   KC_NO,   KC_NO,   _______, \
-  _______, KC_Y,    KC_W,    KC_B,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_V,    _______, \
-  _______, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   _______, _______, _______, \
-  _______, _______, _______, _______, _______,    _______,       _______, _______, _______, _______, _______ \
+[_MOD2U] = LAYOUT_planck_mit( \
+  _______, _______, _______, _______, _______, CMD,     CMD,     _______, _______, _______, _______, _______, \
+  _______, KC_Y,    KC_W,    KC_M,    KC_P,    _______, _______, KC_F,    KC_C,    KC_D,    KC_U,    _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______ \
+),
+
+/* Mod2u
+ * ,-----------------------------------------------------------------------------------.
+ * | Shift|      |      |      |      |  --  |  --  |      |      |      |      |Shift |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Esc  |      |      |      |      |      |      |      |      |      |      |Enter |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Tab  |      |      |      |      |      |      |      |      |      |      | Bspc |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl | Alt  | GUI  | CMD  | EXT  |    Space    | EXT  | CMD  | GUI  |  Alt | Ctrl |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_MOD2L] = LAYOUT_planck_mit( \
+  _______, _______, _______, _______, _______, CMD,     CMD,     _______, _______, _______, _______, _______, \
+  _______, KC_G,    KC_Z,    KC_X,    KC_V,    _______, _______, KC_J,    KC_K,    KC_L,    KC_B,    _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______ \
 ),
 
 /* Extended keys
