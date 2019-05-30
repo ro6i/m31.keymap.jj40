@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MOD1] = LAYOUT_planck_mit( \
-  KC_LSFT, KC_Q,    KC_W,    KC_E,    KC_R,    CMD,     CMD,     KC_U,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
+  KC_LSFT, KC_Q,    KC_W,    KC_E,    KC_R,    CMD,     KC_NO,   KC_U,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_T,    KC_ENT, \
   KC_TAB,  KC_Y,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_BSPC, \
   KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,        KC_SPACE,      EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \
@@ -81,8 +81,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MOD2D] = LAYOUT_planck_mit( \
-  KC_LSFT, KC_Q,    KC_C,    KC_U,    KC_D,    CMD,     KC_NO,   KC_J,    KC_K,    KC_L,    KC_Y,    KC_RSFT, \
-  KC_ESC,  KC_A,    KC_S,    KC_E,    KC_T,    KC_G,    KC_H,    KC_I,    KC_O,    KC_N,    KC_R,    KC_ENT, \
+  KC_LSFT, KC_Q,    KC_C,    KC_U,    KC_D,    CMD,     KC_NO,   KC_N,    KC_I,    KC_O,    KC_R,    KC_RSFT, \
+  KC_ESC,  KC_A,    KC_S,    KC_E,    KC_T,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_Y,    KC_ENT, \
   KC_TAB,  KC_W,    KC_F,    KC_M,    MOD2L,   KC_NO,   KC_NO,   MOD2L,   KC_P,    KC_COMM, KC_DOT,  KC_BSPC, \
   KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,        KC_SPACE,      EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \
 ),
@@ -117,8 +117,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MOD2L] = LAYOUT_planck_mit( \
-  _______, _______, _______, _______, _______, CMD,     CMD,     _______, KC_X,    _______, KC_V,    _______, \
-  _______, _______, KC_Z,    _______, _______, _______, _______, KC_J,    KC_K,    KC_L,    _______, _______, \
+  _______, _______, _______, _______, _______, CMD,     CMD,     _______, _______, _______, _______, _______, \
+  _______, _______, KC_Z,    _______, _______, _______, _______, _______, KC_X,    _______, _______, _______, \
   _______, KC_B,    KC_V,    _______, _______, _______, _______, _______, KC_B,    _______, _______, _______, \
   _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______ \
 ),
