@@ -7,9 +7,9 @@
 enum custom_layers {
   _QWERTY,
   _MOD1,
-  _MOD2D,
-  _MOD2U,
-  _MOD2L,
+  /* _MOD2D, */
+  /* _MOD2U, */
+  /* _MOD2L, */
   _EXT,
   _CMD,
   _ADJUST,
@@ -25,8 +25,8 @@ enum custom_keycodes {
   MOU,
   UNWIND,
   DLC_1,
-  DLC_2,
-  DLC_3
+  DLC_2
+  /* DLC_3 */
 };
 
 #define MOD2U OSL(_MOD2U)
@@ -80,12 +80,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  | CMD  | EXT  |    Space    | EXT  | CMD  | GUI  |  Alt | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
-[_MOD2D] = LAYOUT_planck_mit( \
-  KC_LSFT, KC_Q,    KC_C,    KC_U,    KC_D,    KC_NO,   KC_NO,   KC_N,    KC_I,    KC_O,    KC_Y,    KC_RSFT, \
-  KC_ESC,  KC_A,    KC_S,    KC_E,    KC_T,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_R,    KC_ENT, \
-  KC_TAB,  KC_W,    KC_F,    KC_M,    MOD2L,   KC_NO,   KC_NO,   MOD2L,   KC_P,    KC_COMM, KC_DOT,  KC_BSPC, \
-  KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,        KC_SPACE,      EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \
-),
+/* [_MOD2D] = LAYOUT_planck_mit( \ */
+/*   KC_LSFT, KC_Q,    KC_C,    KC_U,    KC_D,    KC_NO,   KC_NO,   KC_N,    KC_I,    KC_O,    KC_Y,    KC_RSFT, \ */
+/*   KC_ESC,  KC_A,    KC_S,    KC_E,    KC_T,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_R,    KC_ENT, \ */
+/*   KC_TAB,  KC_W,    KC_F,    KC_M,    MOD2L,   KC_NO,   KC_NO,   MOD2L,   KC_P,    KC_COMM, KC_DOT,  KC_BSPC, \ */
+/*   KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,        KC_SPACE,      EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \ */
+/* ), */
 
 /* Mod2a
  * ,-----------------------------------------------------------------------------------.
@@ -98,12 +98,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  | CMD  | EXT  |    Space    | EXT  | CMD  | GUI  |  Alt | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
-[_MOD2U] = LAYOUT_planck_mit( \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______ \
-),
+/* [_MOD2U] = LAYOUT_planck_mit( \ */
+/*   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \ */
+/*   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \ */
+/*   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \ */
+/*   _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______ \ */
+/* ), */
 
 /* Mod2u
  * ,-----------------------------------------------------------------------------------.
@@ -116,12 +116,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  | CMD  | EXT  |    Space    | EXT  | CMD  | GUI  |  Alt | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
-[_MOD2L] = LAYOUT_planck_mit( \
-  _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, \
-  _______, _______, KC_Z,    _______, _______, _______, _______, _______, KC_X,    _______, KC_V,    _______, \
-  _______, KC_B,    KC_V,    _______, _______, _______, _______, _______, KC_B,    _______, _______, _______, \
-  _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______ \
-),
+/* [_MOD2L] = LAYOUT_planck_mit( \ */
+/*   _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, \ */
+/*   _______, _______, KC_Z,    _______, _______, _______, _______, _______, KC_X,    _______, KC_V,    _______, \ */
+/*   _______, KC_B,    KC_V,    _______, _______, _______, _______, _______, KC_B,    _______, _______, _______, \ */
+/*   _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______ \ */
+/* ), */
 
 /* Extended keys
  * ,-----------------------------------------------------------------------------------.
@@ -180,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_mit( \
-  _______, MOV,     MOU,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   DLC_1,   DLC_2,   DLC_3,   KC_NO,   _______, \
+  _______, MOV,     MOU,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   DLC_1,   DLC_2,   KC_NO,   KC_NO,   _______, \
   _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO,   _______, \
   KC_NO,   KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_NO,   KC_SYSREQ, \
   _______, _______, _______, _______, _______,       KC_NO,      _______, _______, _______, _______, _______ \
@@ -313,12 +313,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       default_layer_set(1UL << default_layer);
     }
     return false;
-  case DLC_3:
-    if (record->event.pressed) {
-      default_layer = _MOD2D;
-      default_layer_set(1UL << default_layer);
-    }
-    return false;
+  /* case DLC_3: */
+  /*   if (record->event.pressed) { */
+  /*     default_layer = _MOD2D; */
+  /*     default_layer_set(1UL << default_layer); */
+  /*   } */
+  /*   return false; */
   }
   return true;
 }
