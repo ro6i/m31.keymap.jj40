@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |   5  |   6  |   7  |   8  |   0  |   ;  |   _  |   (  |   )  |   :  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |   .  |   9  |   -  |   +  |   *  |   /  |   `  |   -  |   =  |   '  |   /  |      |
+ * |   .  |   9  |   -  |   +  |   0  |  --  |   `  |   -  |   =  |   '  |   /  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_EXT] = LAYOUT_planck_mit( \
   _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_LGUI, KC_RGUI, KC_DQUO, KC_LBRC, KC_RBRC, KC_BSLS, _______, \
   _______, KC_5,    KC_6,    KC_7,    KC_8,    KC_0,    KC_SCLN, KC_UNDS, KC_LPRN, KC_RPRN, KC_COLN, _______, \
-  KC_DOT,  KC_9,    KC_PMNS, KC_PPLS, KC_PAST, KC_PSLS, KC_GRV,  KC_MINS, KC_EQL,  KC_QUOT, KC_SLSH, _______, \
+  KC_DOT,  KC_9,    KC_PMNS, KC_PPLS, KC_0,    KC_NO,   KC_GRV,  KC_MINS, KC_EQL,  KC_QUOT, KC_SLSH, _______, \
   _______, _______, _______, _______, CMD,         KC_SPACE,     CMD,     _______, _______, _______, _______ \
 ),
 
