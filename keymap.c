@@ -1,15 +1,8 @@
 #include "jj40.h"
 
-/* #define RGBLIGHT_ANIMATIONS */
-
-/* extern keymap_config_t keymap_config; */
-
 enum custom_layers {
   _QWERTY,
   _MOD1,
-  /* _MOD2D, */
-  /* _MOD2U, */
-  /* _MOD2L, */
   _EXT,
   _CMD,
   _ADJUST,
@@ -26,14 +19,12 @@ enum custom_keycodes {
   UNWIND,
   DLC_1,
   DLC_2
-  /* DLC_3 */
 };
+
+#define x KC_NO
 
 #define _V(kc) LT(_MOV, kc)
 #define _U(kc) LT(_MOU, kc)
-
-/* #define MOD2U OSL(_MOD2U) */
-/* #define MOD2L OSL(_MOD2L) */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
@@ -66,65 +57,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MOD1] = LAYOUT_planck_mit( \
-  KC_LSFT, KC_Q,    KC_W,    KC_D,    KC_F,    KC_NO,   KC_Y,    KC_M,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
+  KC_LSFT, KC_Q,    KC_W,    KC_D,    KC_F,    x,       KC_Y,    KC_M,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
   KC_ESC,  KC_A,    KC_S,    KC_E,    _V(KC_R),KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_T,    KC_ENT, \
   KC_TAB,  KC_Z,    KC_Y,    KC_U,    _U(KC_C),KC_V,    KC_B,    KC_N,    KC_COMM, KC_DOT,  KC_X,    KC_BSPC, \
   KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,        KC_SPACE,      EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \
 ),
-
-/* Mod2d
- * ,-----------------------------------------------------------------------------------.
- * | Shift|      |      |      |      |  --  |  --  |      |      |      |      |Shift |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |      |      |      |      |      |      |      |      |      |      |Enter |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Tab  |      |      |      |      |      |      |      |      |      |      | Bspc |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  | CMD  | EXT  |    Space    | EXT  | CMD  | GUI  |  Alt | Ctrl |
- * `-----------------------------------------------------------------------------------'
- */
-/* [_MOD2D] = LAYOUT_planck_mit( \ */
-/*   KC_LSFT, KC_Q,    KC_C,    KC_U,    KC_D,    KC_NO,   KC_NO,   KC_N,    KC_I,    KC_O,    KC_Y,    KC_RSFT, \ */
-/*   KC_ESC,  KC_A,    KC_S,    KC_E,    KC_T,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_R,    KC_ENT, \ */
-/*   KC_TAB,  KC_W,    KC_F,    KC_M,    MOD2L,   KC_NO,   KC_NO,   MOD2L,   KC_P,    KC_COMM, KC_DOT,  KC_BSPC, \ */
-/*   KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,        KC_SPACE,      EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \ */
-/* ), */
-
-/* Mod2a
- * ,-----------------------------------------------------------------------------------.
- * | Shift|      |      |      |      |  --  |  --  |      |      |      |      |Shift |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |      |      |      |      |      |      |      |      |      |      |Enter |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Tab  |      |      |      |      |      |      |      |      |      |      | Bspc |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  | CMD  | EXT  |    Space    | EXT  | CMD  | GUI  |  Alt | Ctrl |
- * `-----------------------------------------------------------------------------------'
- */
-/* [_MOD2U] = LAYOUT_planck_mit( \ */
-/*   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \ */
-/*   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \ */
-/*   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \ */
-/*   _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______ \ */
-/* ), */
-
-/* Mod2u
- * ,-----------------------------------------------------------------------------------.
- * | Shift|      |      |      |      |  --  |  --  |      |      |      |      |Shift |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |      |      |      |      |      |      |      |      |      |      |Enter |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Tab  |      |      |      |      |      |      |      |      |      |      | Bspc |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  | CMD  | EXT  |    Space    | EXT  | CMD  | GUI  |  Alt | Ctrl |
- * `-----------------------------------------------------------------------------------'
- */
-/* [_MOD2L] = LAYOUT_planck_mit( \ */
-/*   _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, \ */
-/*   _______, _______, KC_Z,    _______, _______, _______, _______, _______, KC_X,    _______, KC_V,    _______, \ */
-/*   _______, KC_B,    KC_V,    _______, _______, _______, _______, _______, KC_B,    _______, _______, _______, \ */
-/*   _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______ \ */
-/* ), */
 
 /* Extended keys
  * ,-----------------------------------------------------------------------------------.
@@ -136,20 +73,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
- * ,-----------------------------------------
- * |      |   0  |   1  |   2  |   3  |      
- * |------+------+------+------+------+------
- * |      |   .  |   4  |   5  |   6  |   -  
- * |------+------+------+------+------+------
- * |      |   ,  |   7  |   8  |   9  |   +  
- * |------+------+------+------+------+------
- * |      |      |      |      |      |      
- * `-----------------------------------------
  */
 [_EXT] = LAYOUT_planck_mit( \
   _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_LGUI, KC_RGUI, KC_DQUO, KC_LBRC, KC_RBRC, KC_BSLS, _______, \
   _______, KC_5,    KC_6,    KC_7,    KC_8,    KC_0,    KC_SCLN, KC_UNDS, KC_LPRN, KC_RPRN, KC_COLN, _______, \
-  KC_DOT,  KC_9,    KC_PMNS, KC_PPLS, KC_0,    KC_NO,   KC_GRV,  KC_MINS, KC_EQL,  KC_QUOT, KC_SLSH, _______, \
+  KC_DOT,  KC_9,    KC_PMNS, KC_PPLS, KC_0,    x,       KC_GRV,  KC_MINS, KC_EQL,  KC_QUOT, KC_SLSH, _______, \
   _______, _______, _______, _______, CMD,         KC_SPACE,     CMD,     _______, _______, _______, _______ \
 ),
 
@@ -165,10 +93,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_CMD] = LAYOUT_planck_mit( \
-  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F13,  KC_NO,   KC_NO,   KC_BSPC, KC_DEL,  KC_PAUS, _______, \
+  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F13,  x,       x,       KC_BSPC, KC_DEL,  KC_PAUS, _______, \
   _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F14,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, _______, \
   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F15,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_APP,  _______, \
-  _______, _______, _______, _______, _______,       KC_NO,      _______, _______, _______, _______, _______ \
+  _______, _______, _______, _______, _______,       x    ,      _______, _______, _______, _______, _______ \
 ),
 
 /* Adjust
@@ -183,10 +111,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_mit( \
-  _______, MOV,     MOU,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   DLC_1,   DLC_2,   KC_NO,   KC_NO,   _______, \
-  _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO,   _______, \
-  KC_NO,   KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_NO,   KC_SYSREQ, \
-  _______, _______, _______, _______, _______,       KC_NO,      _______, _______, _______, _______, _______ \
+  _______, MOV,     MOU,     x,       x,       x,       x,       DLC_1,   DLC_2,   x,       x,       _______, \
+  _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, x,       _______, \
+  x,       x,       KC_MUTE, KC_VOLD, KC_VOLU, x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       KC_SYSREQ, \
+  _______, _______, _______, _______, _______,       x,          _______, _______, _______, _______, _______ \
 ),
 
 /* Movement control
@@ -201,10 +129,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MOV] = LAYOUT_planck_mit( \
-  UNWIND,  KC_NO,   MOU,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   UNWIND, \
-  _______, KC_BTN1, KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO, \
-  _______, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_NO,   KC_NO, \
-  _______, _______, _______, KC_NO,   KC_NO,       UNWIND,       KC_NO,   KC_NO,   _______, _______, _______ \
+  _______, x,       MOU,     x,       x,       x,       x,       x,       x,       x,       x,       _______, \
+  _______, x,       x,       x,       x,       x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, x,       _______, \
+  x,       x,       x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  x,       x, \
+  _______, _______, _______, x,       x,           UNWIND,       x,       x,       _______, _______, _______ \
 ),
 
 /* Mouse control
@@ -219,10 +147,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MOU] = LAYOUT_planck_mit( \
-  _______, MOV,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   _______, \
-  _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO,   _______, \
-  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_NO,   KC_NO, \
-  _______, _______, _______, KC_NO,   KC_NO,       UNWIND,       KC_NO,   KC_NO,   _______, _______, _______ \
+  _______, MOV,     x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
+  _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, x,       _______, \
+  x,       x,       x,       x,       x,       x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       x, \
+  _______, _______, _______, x,       x,           UNWIND,       x,       x,       _______, _______, _______ \
 )
 
 };
@@ -231,7 +159,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 int control_layer = NO_CONTROL;
 int default_layer = _MOD1;
-/* int default_layer = _MOD2D; */
 
 void keyboard_post_init_user(void) {
   default_layer_set(1UL << default_layer);
@@ -294,16 +221,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       layer_on(_QWERTY);
     }
     return false;
-  /* case MOD1: */
-  /*   if (record->event.pressed) { */
-  /*     if (default_layer == _QWERTY) { */
-  /*       default_layer = _MOD1; */
-  /*     } else { */
-  /*       default_layer = _QWERTY; */
-  /*     } */
-  /*     default_layer_set(1UL << default_layer); */
-  /*   } */
-  /*   return false; */
   case DLC_1:
     if (record->event.pressed) {
       default_layer = _QWERTY;
@@ -316,12 +233,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       default_layer_set(1UL << default_layer);
     }
     return false;
-  /* case DLC_3: */
-  /*   if (record->event.pressed) { */
-  /*     default_layer = _MOD2D; */
-  /*     default_layer_set(1UL << default_layer); */
-  /*   } */
-  /*   return false; */
   }
   return true;
 }
