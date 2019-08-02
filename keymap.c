@@ -8,7 +8,8 @@ enum custom_layers {
   _ADJUST,
   _MOV,
   _MOU,
-  _QC
+  _QC,
+  _QP
 };
 
 enum custom_keycodes {
@@ -24,8 +25,8 @@ enum custom_keycodes {
 
 #define x KC_NO
 
-#define _Q(kc) LT(_QC, kc)
-#define _U(kc) LT(_MOU, kc)
+#define _C(kc) LT(_QC, kc)
+#define _P(kc) LT(_QP, kc)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
@@ -59,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_MOD1] = LAYOUT_planck_mit( \
   KC_LSFT, KC_Q,    KC_W,    KC_D,    KC_F,    x,       KC_Y,    KC_M,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
-  KC_ESC,  KC_A,    KC_S,    KC_E,    _Q(KC_R),KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_T,    KC_ENT, \
-  KC_TAB,  KC_Z,    KC_Y,    KC_U,    KC_C,    KC_V,    KC_B,    KC_N,    KC_COMM, KC_DOT,  KC_X,    KC_BSPC, \
+  KC_ESC,  KC_A,    KC_S,    KC_E,    _C(KC_R),KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_T,    KC_ENT, \
+  KC_TAB,  KC_Z,    KC_Y,    KC_U,    _P(KC_C),KC_V,    KC_B,    KC_N,    KC_COMM, KC_DOT,  KC_X,    KC_BSPC, \
   KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,        KC_SPACE,      EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \
 ),
 
@@ -169,6 +170,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   _______, x,       x,       x,       x,       x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, x,       _______, \
   x,       x,       x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  x,       KC_DEL, \
+  _______, _______, _______, x,       x,          _______,       x,       x,       _______, _______, _______ \
+),
+
+/* Quick mouse
+ * ,-----------------------------------------------------------------------------------.
+ * |      |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      | Btn1 | Btn2 | Btn3 | Btn4 | Btn5 |  MsL | MsD  | MsU  | MsR  | Btn1 |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |  --  |  --  |  --  |  --  |  --  |  --  |  WhL | WhD  | WhU  | WhR  |  --  |  --  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |  --  |  --  |             |  --  |  --  |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_QP] = LAYOUT_planck_mit( \
+  _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
+  _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, _______, \
+  x,       x,       x,       x,       x,       x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       x, \
   _______, _______, _______, x,       x,          _______,       x,       x,       _______, _______, _______ \
 )
 
