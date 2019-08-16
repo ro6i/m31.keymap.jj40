@@ -168,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QC] = LAYOUT_planck_mit( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, x,       x,       x,       x,       x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, x,       _______, \
+  _______, x,       x,       x,       _______, x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, x,       _______, \
   x,       x,       x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  x,       KC_DEL, \
   _______, _______, _______, x,       x,    LCTL(KC_SPACE),      x,       x,       _______, _______, _______ \
 ),
