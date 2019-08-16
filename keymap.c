@@ -1,4 +1,4 @@
-#include "jj40.h"
+#include QMK_KEYBOARD_H
 
 enum custom_layers {
   _QWERTY,
@@ -20,7 +20,8 @@ enum custom_keycodes {
   MOU,
   UNWIND,
   DLC_1,
-  DLC_2
+  DLC_2,
+  PX_SPACE
 };
 
 #define x KC_NO
@@ -59,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MOD1] = LAYOUT_planck_mit( \
-  KC_LSFT, KC_Q,    KC_W,    KC_D,    KC_F,    x,       KC_Y,    KC_M,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
+  KC_LSFT, KC_Q,    KC_W,    KC_D,    KC_F,    KC_NO,   KC_NO,   KC_M,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
   KC_ESC,  KC_A,    KC_S,    KC_E,    _C(KC_R),KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_T,    KC_ENT, \
   KC_TAB,  KC_Z,    KC_Y,    KC_U,    _P(KC_C),KC_V,    KC_B,    KC_N,    KC_COMM, KC_DOT,  KC_X,    KC_BSPC, \
   KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,        KC_SPACE,      EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \
@@ -80,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_LGUI, KC_RGUI, KC_DQUO, KC_LBRC, KC_RBRC, KC_BSLS, _______, \
   _______, KC_5,    KC_6,    KC_7,    KC_8,    KC_0,    KC_SCLN, KC_UNDS, KC_LPRN, KC_RPRN, KC_COLN, _______, \
   KC_DOT,  KC_9,    KC_PMNS, KC_PPLS, KC_0,    x,       KC_GRV,  KC_MINS, KC_EQL,  KC_QUOT, KC_SLSH, _______, \
-  _______, _______, _______, _______, CMD,    LCTL(KC_SPACE),    CMD,     _______, _______, _______, _______ \
+  _______, _______, _______, _______, CMD,        PX_SPACE,      CMD,     _______, _______, _______, _______ \
 ),
 
 /* Command keys
@@ -98,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F13,  x,       x,       KC_BSPC, KC_DEL,  KC_PAUS, _______, \
   _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F14,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, _______, \
   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F15,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_APP,  _______, \
-  _______, _______, _______, _______, _______,       x    ,      _______, _______, _______, _______, _______ \
+  _______, _______, _______, _______, _______,       x,          _______, _______, _______, _______, _______ \
 ),
 
 /* Adjust
@@ -170,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   _______, x,       x,       x,       _______, x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, x,       _______, \
   x,       x,       x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  x,       KC_DEL, \
-  _______, _______, _______, x,       x,    LCTL(KC_SPACE),      x,       x,       _______, _______, _______ \
+  _______, _______, _______, x,       x,     LCTL(KC_SPACE),     x,       x,       _______, _______, _______ \
 ),
 
 /* Quick mouse
@@ -197,6 +198,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 int control_layer = NO_CONTROL;
 int default_layer = _MOD1;
+bool is_ext_on = false;
+bool is_ext_pristine = false;
 
 void keyboard_post_init_user(void) {
   default_layer_set(1UL << default_layer);
@@ -204,13 +207,30 @@ void keyboard_post_init_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+  case PX_SPACE:
+    if (record->event.pressed) {
+      if (is_ext_on && is_ext_pristine) {
+        SEND_STRING(SS_DOWN(X_LCTRL));
+        SEND_STRING(SS_TAP(X_SPACE));
+        SEND_STRING(SS_UP(X_LCTRL));
+      } else {
+        SEND_STRING(SS_TAP(X_SPACE));
+      }
+      is_ext_pristine = false;
+    } else {
+    }
+    return false;
   case EXT:
     if (record->event.pressed) {
       layer_on(_EXT);
       update_tri_layer(_EXT, _CMD, _ADJUST);
+      is_ext_on = true;
+      is_ext_pristine = true;
     } else {
       layer_off(_EXT);
       update_tri_layer(_EXT, _CMD, _ADJUST);
+      is_ext_on = false;
+      is_ext_pristine = false;
     }
     return false;
   case CMD:
@@ -271,6 +291,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       default_layer_set(1UL << default_layer);
     }
     return false;
+  default:
+    if (is_ext_on)
+      is_ext_pristine = false;
   }
   return true;
 }
