@@ -200,6 +200,7 @@ int control_layer = NO_CONTROL;
 int default_layer = _MOD1;
 bool is_ext_on = false;
 bool is_ext_pristine = false;
+bool is_px_on = false;
 
 void keyboard_post_init_user(void) {
   default_layer_set(1UL << default_layer);
@@ -212,12 +213,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (is_ext_on && is_ext_pristine) {
         SEND_STRING(SS_DOWN(X_LCTRL));
         SEND_STRING(SS_TAP(X_SPACE));
-        SEND_STRING(SS_UP(X_LCTRL));
+        is_px_on = true;
       } else {
         SEND_STRING(SS_TAP(X_SPACE));
       }
       is_ext_pristine = false;
     } else {
+      if (is_px_on) {
+        SEND_STRING(SS_UP(X_LCTRL));
+        is_px_on = false;
+      }
     }
     return false;
   case EXT:
