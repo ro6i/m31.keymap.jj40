@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Mod1
  * ,-----------------------------------------------------------------------------------.
- * | Shift|   Q  |   W  |   D  |   F  |  MOV |   Y  |   M  |   I  |   O  |   P  |Shift |
+ * | Shift|   Q  |   W  |   D  |   F  |      |      |   M  |   I  |   O  |   P  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Esc  |   A  |   S  |   E  |   R  |   G  |   H  |   J  |   K  |   L  |   T  |Enter |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust
  * ,-----------------------------------------------------------------------------------.
- * |      |  MOV |  MOU |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |      |
+ * |      |  MOV |  MOU |  --  |  --  |  --  |  --  | DLC_1| DLC_2|  --  |  --  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      | Btn1 | Btn2 | Btn3 | Btn4 | Btn5 |  MsL | MsD  | MsU  | MsR  |  --  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_mit( \
-  _______, MOV,     MOU,     x,       x,       x,       x,       DLC_1,   DLC_2,   x,       x,       _______, \
+  _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, x,       _______, \
   x,       x,       KC_MUTE, KC_VOLD, KC_VOLU, x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       KC_SYSREQ, \
   _______, _______, _______, _______, _______,       x,          _______, _______, _______, _______, _______ \
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   _______, x,       x,       x,       x,       x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, x,       _______, \
   x,       x,       x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  x,       x, \
-  _______, _______, _______, x,       x,           UNWIND,       x,       x,       _______, _______, _______ \
+  _______, _______, _______, x,       x,          UNWIND,        x,       x,       _______, _______, _______ \
 ),
 
 /* Mouse control
@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_MOU] = LAYOUT_planck_mit( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, x,       _______, \
+  _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, _______, \
   x,       x,       x,       x,       x,       x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       x, \
   _______, _______, _______, x,       x,           UNWIND,       x,       x,       _______, _______, _______ \
 ),
@@ -169,9 +169,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QC] = LAYOUT_planck_mit( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, x,       x,       x,       _______, x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, x,       _______, \
+  _______, x,       x,       x,       _______, x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, _______, \
   x,       x,       x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  x,       KC_DEL, \
-  _______, _______, _______, x,       x,          _______,       x,       x,       _______, _______, _______ \
+  _______, _______, _______, x,       x,           MOV,          x,       x,       _______, _______, _______ \
 ),
 
 /* Quick mouse
@@ -189,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, _______, \
   x,       x,       x,       x,       x,       x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       x, \
-  _______, _______, _______, x,       x,          _______,       x,       x,       _______, _______, _______ \
+  _______, _______, _______, x,       x,           MOU,          x,       x,       _______, _______, _______ \
 )
 
 };
