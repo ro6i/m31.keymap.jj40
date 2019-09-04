@@ -21,10 +21,19 @@ enum custom_keycodes {
   UNWIND,
   DLC_1,
   DLC_2,
-  PX_SPACE
+  PX_SPACE,
+  DYNAMIC_MACRO_RANGE
 };
 
+#include "dynamic_macro.h"
+
 #define x KC_NO
+
+#define DM1_R DYN_REC_START1
+#define DM2_R DYN_REC_START2
+#define DM1_P DYN_MACRO_PLAY1
+#define DM2_P DYN_MACRO_PLAY2
+#define DM_STOP DYN_REC_STOP
 
 #define _C(kc) LT(_QC, kc)
 #define _P(kc) LT(_QP, kc)
@@ -114,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_mit( \
-  _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
+  _______, DM1_R,   DM2_R,   x,       DM_STOP, x,       x,       DM1_P,   DM2_P,   x,       x,       _______, \
   _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, x,       _______, \
   x,       x,       KC_MUTE, KC_VOLD, KC_VOLU, x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       KC_SYSREQ, \
   _______, _______, _______, _______, _______,       x,          _______, _______, _______, _______, _______ \
@@ -207,6 +216,9 @@ void keyboard_post_init_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_record_dynamic_macro(keycode, record)) {
+    return false;
+  }
   switch (keycode) {
   case PX_SPACE:
     if (record->event.pressed) {
