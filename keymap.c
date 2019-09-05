@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_EXT] = LAYOUT_planck_mit( \
-  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_LGUI, KC_RGUI, KC_DQUO, KC_LBRC, KC_RBRC, KC_BSLS, _______, \
+  _______, KC_1,    KC_2,    KC_3,    KC_4,    x,       x,       KC_DQUO, KC_LBRC, KC_RBRC, KC_BSLS, _______, \
   _______, KC_5,    KC_6,    KC_7,    KC_8,    KC_0,    KC_SCLN, KC_UNDS, KC_LPRN, KC_RPRN, KC_COLN, _______, \
   KC_DOT,  KC_9,    KC_PMNS, KC_PPLS, KC_0,    x,       KC_GRV,  KC_MINS, KC_EQL,  KC_QUOT, KC_SLSH, _______, \
   _______, _______, _______, _______, CMD,        PX_SPACE,      CMD,     _______, _______, _______, _______ \
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_CMD] = LAYOUT_planck_mit( \
-  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F13,  x,       x,       KC_BSPC, KC_DEL,  KC_PAUS, _______, \
+  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F13,  x,       DM1_P,   DM2_P,   KC_DEL,  KC_PAUS, _______, \
   _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F14,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, _______, \
   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F15,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_APP,  _______, \
   _______, _______, _______, _______, _______,       x,          _______, _______, _______, _______, _______ \
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_mit( \
-  _______, DM1_R,   DM2_R,   x,       DM_STOP, x,       x,       DM1_P,   DM2_P,   x,       x,       _______, \
+  _______, DM1_R,   DM2_R,   x,       DM_STOP, x,       x,       x,       x,       x,       x,       _______, \
   _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, x,       _______, \
   x,       x,       KC_MUTE, KC_VOLD, KC_VOLU, x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       KC_SYSREQ, \
   _______, _______, _______, _______, _______,       x,          _______, _______, _______, _______, _______ \
