@@ -207,9 +207,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 int control_layer = NO_CONTROL;
 int default_layer = _MOD1;
-bool is_ext_on = false;
-bool is_ext_pristine = false;
-bool is_px_on = false;
+bool is_ext_layer_on = false;
+bool is_ext_layer_pristine = false;
+bool is_px_key_on = false;
+
+#define LAYER_ON(l_on, l_off_1, l_off_2, l_off_3, l_off_4, l_off_5) layer_off(l_off_1); layer_off(l_off_2); layer_off(l_off_3); layer_off(l_off_4); layer_off(l_off_5); layer_on(l_on); control_layer = l_on == _QWERTY ? NO_CONTROL : l_on;
 
 void keyboard_post_init_user(void) {
   default_layer_set(1UL << default_layer);
@@ -222,78 +224,52 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case PX_SPACE:
     if (record->event.pressed) {
-      if (is_ext_on && is_ext_pristine) {
+      if (is_ext_layer_on && is_ext_layer_pristine) {
         SEND_STRING(SS_DOWN(X_LCTRL));
         SEND_STRING(SS_TAP(X_SPACE));
-        is_px_on = true;
+        is_px_key_on = true;
       } else {
         SEND_STRING(SS_TAP(X_SPACE));
       }
-      is_ext_pristine = false;
+      is_ext_layer_pristine = false;
     } else {
-      if (is_px_on) {
+      if (is_px_key_on) {
         SEND_STRING(SS_UP(X_LCTRL));
-        is_px_on = false;
+        is_px_key_on = false;
       }
     }
     return false;
   case EXT:
     if (record->event.pressed) {
       layer_on(_EXT);
-      update_tri_layer(_EXT, _CMD, _ADJUST);
-      is_ext_on = true;
-      is_ext_pristine = true;
+      is_ext_layer_pristine = is_ext_layer_on = true;
     } else {
       layer_off(_EXT);
-      update_tri_layer(_EXT, _CMD, _ADJUST);
-      is_ext_on = false;
-      is_ext_pristine = false;
+      is_ext_layer_pristine = is_ext_layer_on = false;
     }
+    update_tri_layer(_EXT, _CMD, _ADJUST);
     return false;
   case CMD:
     if (record->event.pressed) {
       layer_on(_CMD);
-      update_tri_layer(_EXT, _CMD, _ADJUST);
     } else {
       layer_off(_CMD);
-      update_tri_layer(_EXT, _CMD, _ADJUST);
     }
+    update_tri_layer(_EXT, _CMD, _ADJUST);
     return false;
   case MOV:
-    if (record->event.pressed) {
-      if (control_layer != MOV) {
-        layer_off(_QWERTY);
-        layer_off(_ADJUST);
-        layer_off(_EXT);
-        layer_off(_CMD);
-        layer_off(_MOU);
-        layer_on(_MOV);
-        control_layer = MOV;
-      }
+    if (record->event.pressed && control_layer != MOV) {
+      LAYER_ON(_MOV, _EXT, _CMD, _ADJUST, _MOU, _QWERTY);
     }
     return false;
   case MOU:
-    if (record->event.pressed) {
-      if (control_layer != MOU) {
-        layer_off(_QWERTY);
-        layer_off(_ADJUST);
-        layer_off(_EXT);
-        layer_off(_CMD);
-        layer_off(_MOV);
-        layer_on(_MOU);
-        control_layer = MOU;
-      }
+    if (record->event.pressed && control_layer != MOU) {
+      LAYER_ON(_MOU, _EXT, _CMD, _ADJUST, _MOV, _QWERTY);
     }
     return false;
   case UNWIND:
     if (record->event.pressed) {
-      layer_off(_MOV);
-      layer_off(_MOU);
-      control_layer = NO_CONTROL;
-      layer_off(_ADJUST);
-      layer_off(_EXT);
-      layer_off(_CMD);
-      layer_on(_QWERTY);
+      LAYER_ON(_QWERTY, _EXT, _CMD, _ADJUST, _MOV, _MOV);
     }
     return false;
   case DLC_1:
@@ -309,8 +285,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
   default:
-    if (is_ext_on)
-      is_ext_pristine = false;
+    if (is_ext_layer_on)
+      is_ext_layer_pristine = false;
   }
   return true;
 }
