@@ -195,8 +195,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_QUICK_MOVE] = LAYOUT_planck_mit( \
-  _______, x,       x,       x,       x,       _______, x,       x,       x,       x,       x,       _______, \
-  _______, x,       x,       x,       x,       x,       x,  C(KC_TAB),C(S(KC_TAB)),x,       _______, _______, \
+  _______, x,       x,       x,       _______, x,       x,       x,       x,       x,       x,       _______, \
+  _______, x,       x,       x,       x,       x,   C(S(KC_TAB)),C(KC_TAB),C(S(KC_TAB)),C(KC_TAB),   _______, _______, \
   x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   _______, _______, _______, x,       x,            x,           x,       x,       _______, _______, _______ \
 ),
