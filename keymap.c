@@ -8,8 +8,10 @@ enum custom_layers {
   _ADJUST,
   _MOV,
   _MOU,
-  _QC,
-  _QP
+  _QUICK_CONTROL,
+  _QUICK_GO,
+  _QUICK_MOVE,
+  _QUICK_POINT
 };
 
 enum custom_keycodes {
@@ -35,8 +37,10 @@ enum custom_keycodes {
 #define DM2_P DYN_MACRO_PLAY2
 #define DM_STOP DYN_REC_STOP
 
-#define _C(kc) LT(_QC, kc)
-#define _P(kc) LT(_QP, kc)
+#define QC_F LT(_QUICK_MOVE, KC_F)
+#define QC_R LT(_QUICK_CONTROL, KC_R)
+#define QC_G LT(_QUICK_GO, KC_G)
+#define QC_C LT(_QUICK_POINT, KC_C)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
@@ -69,9 +73,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MOD1] = LAYOUT_planck_mit( \
-  KC_LSFT, KC_Q,    KC_W,    KC_D,    KC_F,    KC_NO,   KC_NO,   KC_M,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
-  KC_ESC,  KC_A,    KC_S,    KC_E,    _C(KC_R),KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_T,    KC_ENT, \
-  KC_TAB,  KC_Z,    KC_Y,    KC_U,    _P(KC_C),KC_V,    KC_B,    KC_N,    KC_COMM, KC_DOT,  KC_X,    KC_BSPC, \
+  KC_LSFT, KC_Q,    KC_W,    KC_D,    QC_F,    KC_NO,   KC_NO,   KC_M,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
+  KC_ESC,  KC_A,    KC_S,    KC_E,    QC_R,    QC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_T,    KC_ENT, \
+  KC_TAB,  KC_Z,    KC_Y,    KC_U,    QC_C,    KC_V,    KC_B,    KC_N,    KC_COMM, KC_DOT,  KC_X,    KC_BSPC, \
   KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,        KC_SPACE,      EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \
 ),
 
@@ -176,11 +180,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |  --  |  --  |             |  --  |  --  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_QC] = LAYOUT_planck_mit( \
-  _______, x,       x,       x,       x,       x,       x,       x,       KC_TAB,  KC_GRV,  x,       _______, \
+[_QUICK_CONTROL] = LAYOUT_planck_mit( \
+  _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   _______, KC_LALT, KC_LGUI, x,       _______, x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, _______, \
   x,       x,       x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_DEL,  _______, \
   _______, _______, _______, x,       KC_LCTL,     MOV,          x,       x,       _______, _______, _______ \
+),
+
+[_QUICK_GO] = LAYOUT_planck_mit( \
+  _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
+  _______, x,       x,       x,       x,       _______, S(KC_GRV),KC_TAB, S(KC_TAB),KC_GRV, KC_ESC,  _______, \
+  x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
+  _______, _______, _______, x,       x,            x,           x,       x,       _______, _______, _______ \
+),
+
+[_QUICK_MOVE] = LAYOUT_planck_mit( \
+  _______, x,       x,       x,       x,       _______, x,       x,       x,       x,       x,       _______, \
+  _______, x,       x,       x,       x,       x,       x,  C(KC_TAB),C(S(KC_TAB)),x,       _______, _______, \
+  x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
+  _______, _______, _______, x,       x,            x,           x,       x,       _______, _______, _______ \
 ),
 
 /* Quick mouse
@@ -194,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |  --  |  --  |             |  --  |  --  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_QP] = LAYOUT_planck_mit( \
+[_QUICK_POINT] = LAYOUT_planck_mit( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, _______, \
   x,       x,       x,       x,       x,       x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       x, \
@@ -210,11 +228,30 @@ int default_layer = _MOD1;
 bool is_ext_layer_on = false;
 bool is_ext_layer_pristine = false;
 bool is_px_key_on = false;
+bool is_gui_on = false;
 
 #define LAYER_ON(l_on, l_off_1, l_off_2, l_off_3, l_off_4, l_off_5) layer_off(l_off_1); layer_off(l_off_2); layer_off(l_off_3); layer_off(l_off_4); layer_off(l_off_5); layer_on(l_on); control_layer = l_on == _QWERTY ? NO_CONTROL : l_on;
 
 void keyboard_post_init_user(void) {
   default_layer_set(1UL << default_layer);
+}
+
+
+uint32_t layer_state_set_user(uint32_t state) {
+  switch (biton32(state)) {
+  case _QUICK_GO:
+    register_code(KC_LGUI);
+    is_gui_on = true;
+    break;
+  default:
+    /* if (keyboard_report->mods & MOD_BIT(KC_LGUI)) { */
+    if (is_gui_on) {
+      unregister_code(KC_LGUI);
+      is_gui_on = false;
+    }
+    break;
+  }
+  return state;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -225,16 +262,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case PX_SPACE:
     if (record->event.pressed) {
       if (is_ext_layer_on && is_ext_layer_pristine) {
-        SEND_STRING(SS_DOWN(X_LCTRL));
-        SEND_STRING(SS_TAP(X_SPACE));
+        register_code(KC_LCTRL);
+        tap_code(KC_SPACE);
         is_px_key_on = true;
       } else {
-        SEND_STRING(SS_TAP(X_SPACE));
+        tap_code(KC_SPACE);
       }
       is_ext_layer_pristine = false;
     } else {
       if (is_px_key_on) {
-        SEND_STRING(SS_UP(X_LCTRL));
+        unregister_code(KC_LCTRL);
         is_px_key_on = false;
       }
     }
