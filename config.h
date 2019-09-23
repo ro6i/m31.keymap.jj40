@@ -5,11 +5,16 @@
 
 #define PREVENT_STUCK_MODIFIERS
 
+// magic mode not used
 #pragma push_macro("IS_COMMAND")
 #undef IS_COMMAND
 #define IS_COMMAND() false
 
-/* #define TAPPING_TERM 80 */
+/* #define PERMISSIVE_HOLD */
+/* #define TAPPING_TERM_PER_KEY */
+#define TAPPING_TERM 200
+
+/* TAP_HOLD_CAPS_DELAY 200 */
 
 #define MOUSEKEY_DELAY 0
 #define MOUSEKEY_INTERVAL 20
