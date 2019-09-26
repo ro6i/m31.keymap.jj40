@@ -3,7 +3,6 @@
 enum custom_layers {
   _QWERTY,
   _MOD1,
-  _SPACE_T,
   _EXT,
   _CMD,
   _ADJUST,
@@ -77,14 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT, KC_Q,    KC_W,    KC_D,    QC_F,    KC_NO,   KC_NO,   KC_M,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
   KC_ESC,  KC_A,    KC_S,    KC_E,    QC_R,    QC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_T,    KC_ENT, \
   KC_TAB,  KC_Z,    KC_Y,    KC_U,    QC_C,    KC_V,    KC_B,    KC_N,    KC_COMM, KC_DOT,  KC_X,    KC_BSPC, \
-  KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,LT(_SPACE_T, KC_SPACE),EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \
-),
-
-[_SPACE_T] = LAYOUT_planck_mit( \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______,      _______,     _______, _______, _______, _______, _______ \
+  KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,   LCTL_T(KC_SPACE),   EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \
 ),
 
 /* Extended keys
@@ -237,7 +229,6 @@ bool is_ext_layer_on = false;
 bool is_ext_layer_pristine = false;
 bool is_px_key_on = false;
 bool is_gui_on = false;
-bool is_ctl_on = false;
 
 #define LAYER_ON(l_on, l_off_1, l_off_2, l_off_3, l_off_4, l_off_5) layer_off(l_off_1); layer_off(l_off_2); layer_off(l_off_3); layer_off(l_off_4); layer_off(l_off_5); layer_on(l_on); control_layer = l_on == _QWERTY ? NO_CONTROL : l_on;
 
@@ -252,19 +243,11 @@ uint32_t layer_state_set_user(uint32_t state) {
     register_code(KC_LGUI);
     is_gui_on = true;
     break;
-  case _SPACE_T:
-    register_code(KC_LCTL);
-    is_ctl_on = true;
-    break;
   default:
     /* if (keyboard_report->mods & MOD_BIT(KC_LGUI)) { */
     if (is_gui_on) {
       unregister_code(KC_LGUI);
       is_gui_on = false;
-    }
-    if (is_ctl_on) {
-      unregister_code(KC_LCTL);
-      is_ctl_on = false;
     }
     break;
   }
