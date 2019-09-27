@@ -10,7 +10,7 @@ enum custom_layers {
   _MOU,
   _QUICK_CONTROL,
   _QUICK_GO,
-  _QUICK_MOVE,
+  /* _QUICK_MOVE, */
   _QUICK_POINT
 };
 
@@ -37,7 +37,7 @@ enum custom_keycodes {
 #define DM2_P DYN_MACRO_PLAY2
 #define DM_STOP DYN_REC_STOP
 
-#define QC_F LT(_QUICK_MOVE, KC_F)
+/* #define QC_F LT(_QUICK_MOVE, KC_F) */
 #define QC_R LT(_QUICK_CONTROL, KC_R)
 #define QC_G LT(_QUICK_GO, KC_G)
 #define QC_C LT(_QUICK_POINT, KC_C)
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MOD1] = LAYOUT_planck_mit( \
-  KC_LSFT, KC_Q,    KC_W,    KC_D,    QC_F,    KC_NO,   KC_NO,   KC_M,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
+  KC_LSFT, KC_Q,    KC_W,    KC_D,    KC_F,    KC_NO,   KC_NO,   KC_M,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
   KC_ESC,  KC_A,    KC_S,    KC_E,    QC_R,    QC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_T,    KC_ENT, \
   KC_TAB,  KC_Z,    KC_Y,    KC_U,    QC_C,    KC_V,    KC_B,    KC_N,    KC_COMM, KC_DOT,  KC_X,    KC_BSPC, \
   KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,   LCTL_T(KC_SPACE),   EXT,     CMD,     KC_RGUI, KC_RALT, KC_RCTL \
@@ -194,12 +194,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, x,       x,            x,           x,       x,       _______, _______, _______ \
 ),
 
-[_QUICK_MOVE] = LAYOUT_planck_mit( \
-  _______, x,       x,       x,       _______, x,       x,       x,       x,       x,       x,       _______, \
-  _______, x,       x,       x,       x,       x,   C(S(KC_TAB)),C(KC_TAB),C(S(KC_TAB)),C(KC_TAB),   _______, _______, \
-  x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, _______, _______, x,       x,            x,           x,       x,       _______, _______, _______ \
-),
+/* [_QUICK_MOVE] = LAYOUT_planck_mit( \ */
+/*   _______, x,       x,       x,       _______, x,       x,       x,       x,       x,       x,       _______, \ */
+/*   _______, x,       x,       x,       x,       x,   C(S(KC_TAB)),C(KC_TAB),C(S(KC_TAB)),C(KC_TAB),   _______, _______, \ */
+/*   x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \ */
+/*   _______, _______, _______, x,       x,            x,           x,       x,       _______, _______, _______ \ */
+/* ), */
 
 /* Quick mouse
  * ,-----------------------------------------------------------------------------------.
