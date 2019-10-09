@@ -315,7 +315,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   case UNWIND:
     if (record->event.pressed) {
-      LAYER_ON(_QWERTY, _EXT, _CMD, _ADJUST, _MOV, _MOV);
+      LAYER_ON(_QWERTY, _EXT, _CMD, _ADJUST, _MOV, _MOU);
     }
     return false;
   case DLC_1:
