@@ -182,16 +182,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QUICK_CONTROL] = LAYOUT_planck_mit( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, KC_LALT, KC_LGUI, x,       _______, x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, _______, \
+  _______, KC_LALT, KC_LGUI, x,       _______, x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, MOV, \
   x,       x,       x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_DEL,  _______, \
-  _______, _______, _______, x,       KC_LCTL,     MOV,          x,       x,       _______, _______, _______ \
+  _______, _______, _______, x,       KC_LCTL,   _______,        x,       x,       _______, _______, _______ \
 ),
 
 [_QUICK_GO] = LAYOUT_planck_mit( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   _______, x,       x,       x,       x,       _______, S(KC_TAB),KC_GRV, S(KC_GRV),KC_TAB, KC_ESC,  _______, \
   x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, _______, _______, x,       x,            x,           x,       x,       _______, _______, _______ \
+  _______, _______, _______, x,       x,         _______,        x,       x,       _______, _______, _______ \
 ),
 
 /* [_QUICK_MOVE] = LAYOUT_planck_mit( \ */
@@ -214,9 +214,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QUICK_POINT] = LAYOUT_planck_mit( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, _______, \
+  _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, MOU, \
   x,       x,       x,       x,       x,       x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       x, \
-  _______, _______, _______, x,       x,           MOU,          x,       x,       _______, _______, _______ \
+  _______, _______, _______, x,       x,           x,            x,       x,       _______, _______, _______ \
 )
 
 };
