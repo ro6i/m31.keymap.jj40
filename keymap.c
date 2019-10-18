@@ -9,7 +9,7 @@ enum custom_layers {
   _MOV,
   _MOU,
   _QUICK_CONTROL,
-  /* _QUICK_GO, */
+  _QUICK_GO,
   /* _QUICK_MOVE, */
   _QUICK_POINT
 };
@@ -39,8 +39,9 @@ enum custom_keycodes {
 
 /* #define QC_F LT(_QUICK_MOVE, KC_F) */
 #define QC_R LT(_QUICK_CONTROL, KC_R)
-/* #define QC_G LT(_QUICK_GO, KC_G) */
+#define QC_EXT LT(_QUICK_GO, KC_TAB)
 #define QC_C LT(_QUICK_POINT, KC_C)
+#define QUICK_GO MO(_QUICK_GO)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
@@ -94,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_1,    KC_2,    KC_3,    KC_4,    x,       x,       KC_DQUO, KC_LBRC, KC_RBRC, KC_BSLS, _______, \
   _______, KC_5,    KC_6,    KC_7,    KC_8,    KC_0,    KC_SCLN, KC_UNDS, KC_LPRN, KC_RPRN, KC_COLN, _______, \
   KC_DOT,  KC_9,    KC_PMNS, KC_PPLS, KC_0,    x,       KC_GRV,  KC_MINS, KC_EQL,  KC_QUOT, KC_SLSH, _______, \
-  _______, _______, _______, _______, CMD,        PX_SPACE,    G(KC_ESC), _______, _______, _______, _______ \
+  _______, _______, _______, _______, QUICK_GO,   PX_SPACE,    G(KC_ESC), _______, _______, _______, _______ \
 ),
 
 /* Command keys
@@ -187,12 +188,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, x,       KC_LCTL,   _______,        x,       x,       _______, _______, _______ \
 ),
 
-/* [_QUICK_GO] = LAYOUT_planck_mit( \ */
-/*   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \ */
-/*   _______, x,       x,       x,       x,       _______, S(KC_TAB),KC_GRV, S(KC_GRV),KC_TAB, KC_ESC,  _______, \ */
-/*   x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \ */
-/*   _______, _______, _______, x,       x,         _______,        x,       x,       _______, _______, _______ \ */
-/* ), */
+[_QUICK_GO] = LAYOUT_planck_mit( \
+  _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
+  _______, x,       x,       x,       x,       _______, S(KC_TAB),KC_GRV, S(KC_GRV),KC_TAB, KC_ESC,  _______, \
+  x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
+  _______, _______, _______, x,       x,         _______,        x,       x,       _______, _______, _______ \
+),
 
 /* [_QUICK_MOVE] = LAYOUT_planck_mit( \ */
 /*   _______, x,       x,       x,       _______, x,       x,       x,       x,       x,       x,       _______, \ */
@@ -237,22 +238,22 @@ void keyboard_post_init_user(void) {
 }
 
 
-/* uint32_t layer_state_set_user(uint32_t state) { */
-/*   switch (biton32(state)) { */
-/*   case _QUICK_GO: */
-/*     register_code(KC_LGUI); */
-/*     is_gui_on = true; */
-/*     break; */
-/*   default: */
-/*     /1* if (keyboard_report->mods & MOD_BIT(KC_LGUI)) { *1/ */
-/*     if (is_gui_on) { */
-/*       unregister_code(KC_LGUI); */
-/*       is_gui_on = false; */
-/*     } */
-/*     break; */
-/*   } */
-/*   return state; */
-/* } */
+uint32_t layer_state_set_user(uint32_t state) {
+  switch (biton32(state)) {
+  case _QUICK_GO:
+    register_code(KC_LGUI);
+    is_gui_on = true;
+    break;
+  default:
+    /* if (keyboard_report->mods & MOD_BIT(KC_LGUI)) { */
+    if (is_gui_on) {
+      unregister_code(KC_LGUI);
+      is_gui_on = false;
+    }
+    break;
+  }
+  return state;
+}
 
 /* uint16_t get_tapping_term(uint16_t keycode) { */
 /*   switch (keycode) { */
