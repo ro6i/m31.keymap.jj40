@@ -1,33 +1,26 @@
 #include QMK_KEYBOARD_H
 
 enum custom_layers {
-  _QWERTY,
-  _MOD1,
-  _EXT,
-  _CMD,
-  _ADJUST,
-  _MOV,
-  _MOU,
-  _QUICK_CONTROL,
-  _QUICK_GO,
-  /* _QUICK_MOVE, */
-  _QUICK_POINT
+  _MODE1
+  , _EXT
+  , _CMD
+  , _ADJUST
+  , _MOVE
+  , _POINT
+  , _QUICK_CONTROL
+  , _QUICK_POINT
+  , _QUICK_GO
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  EXT,
-  CMD,
-  MOV,
-  MOU,
-  UNWIND,
-  DLC_1,
-  DLC_2,
-  PX_SPACE,
-  DYNAMIC_MACRO_RANGE
+  MODE1 = SAFE_RANGE
+  , EXT
+  , CMD
+  , MOVE
+  , POINT
+  , UNWIND
+  , PX_SPACE
 };
-
-#include "dynamic_macro.h"
 
 #define x KC_NO
 
@@ -37,32 +30,13 @@ enum custom_keycodes {
 #define DM2_P DYN_MACRO_PLAY2
 #define DM_STOP DYN_REC_STOP
 
-/* #define QC_F LT(_QUICK_MOVE, KC_F) */
 #define QC_R LT(_QUICK_CONTROL, KC_R)
-#define QC_EXT LT(_QUICK_GO, KC_TAB)
 #define QC_C LT(_QUICK_POINT, KC_C)
 #define QUICK_GO MO(_QUICK_GO)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Qwerty
- * ,-----------------------------------------------------------------------------------.
- * | Shift|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |Shift |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Tab  |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Bspc |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  | CMD  | EXT  |    Space    | EXT  | CMD  | GUI  |  Alt | Ctrl |
- * `-----------------------------------------------------------------------------------'
- */
-[_QWERTY] = LAYOUT_planck_mit( \
-  KC_LSFT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
-  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT, \
-  KC_TAB,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_BSPC, \
-  KC_LCTL, KC_LALT, KC_LGUI, CMD,     EXT,        KC_SPACE,      EXT,  CMD,     KC_RGUI, KC_RALT, KC_RCTL \
-),
 
-/* Mod1
+/* Mode 1
  * ,-----------------------------------------------------------------------------------.
  * | Shift|   Q  |   W  |   D  |   F  |      |      |   M  |   I  |   O  |   P  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -70,10 +44,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Tab  |   Z  |   Y  |   U  |   C  |   V  |   B  |   N  |   ,  |   .  |   X  | Bspc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  | CMD  | EXT  |    Space    | EXT  | CMD  | GUI  |  Alt | Ctrl |
+ * | Ctrl | Alt  | GUI  | CMD  | EXT  | Space /Ctrl | EXT  | CMD  | GUI  |  Alt | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
-[_MOD1] = LAYOUT_planck_mit( \
+[_MODE1] = LAYOUT_planck_mit( \
   KC_LSFT, KC_Q,    KC_W,    KC_D,    KC_F,    KC_NO,   KC_NO,   KC_M,    KC_I,    KC_O,    KC_P,    KC_RSFT, \
   KC_ESC,  KC_A,    KC_S,    KC_E,    QC_R,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_T,    KC_ENT, \
   KC_TAB,  KC_Z,    KC_Y,    KC_U,    QC_C,    KC_V,    KC_B,    KC_N,    KC_COMM, KC_DOT,  KC_X,    KC_BSPC, \
@@ -106,68 +80,68 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F9  |  F10 |  F11 |  F12 |  F15 | Home | PgDn | PgUp | End  | App  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |    -----    |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_CMD] = LAYOUT_planck_mit( \
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F13,  x,       DM1_P,   DM2_P,   KC_DEL,  KC_PAUS, _______, \
   _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F14,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, _______, \
   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F15,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_APP,  _______, \
-  _______, _______, _______, _______, _______,       x,          _______, _______, _______, _______, _______ \
+  _______, _______, _______, _______, _______,        x,         _______, _______, _______, _______, _______ \
 ),
 
 /* Adjust
  * ,-----------------------------------------------------------------------------------.
- * |      |  MOV |  MOU |  --  |  --  |  --  |  --  | DLC_1| DLC_2|  --  |  --  |      |
+ * |      | REC 1| REC 2|      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      | Btn1 | Btn2 | Btn3 | Btn4 | Btn5 |  MsL | MsD  | MsU  | MsR  |  --  |      |
+ * |      |      |      |      |      |      | MOVE |      |      |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |  --  |  --  | Mute | VolU | VolD |  --  |  WhL | WhD  | WhU  | WhR  |  --  |SysRq |
+ * |  --  |  --  | Mute | VolU | VolD |  --  | POINT|      |      |      |      |SysRq |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |    -----    |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_mit( \
   _______, DM1_R,   DM2_R,   x,       DM_STOP, x,       x,       x,       x,       x,       x,       _______, \
-  _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, x,       _______, \
-  x,       x,       KC_MUTE, KC_VOLD, KC_VOLU, x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       KC_SYSREQ, \
-  _______, _______, _______, _______, _______,       x,          _______, _______, _______, _______, _______ \
+  _______, x,       x,       x,       x,       x,       x,       MOVE,    x,       x,       x,       _______, \
+  x,       x,       KC_MUTE, KC_VOLD, KC_VOLU, x,       x,       POINT,   x,       x,       x,       KC_SYSREQ, \
+  _______, _______, _______, _______, _______,        x,         _______, _______, _______, _______, _______ \
 ),
 
 /* Movement control
  * ,-----------------------------------------------------------------------------------.
  * |      |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      | Btn1 |  MsL |  MsU |  MsD |  MsR | Left | Down |  Up  | Right|  --  |  --  |
+ * |UNWIND| Btn1 |  MsL |  MsU |  MsD |  MsR | Left | Down |  Up  | Right|  --  |  --  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  --  |  --  |  --  |  --  |  --  | Home | PgDn | PgUp | End  |  --  |  --  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |  --  |  --  |    UNWIND   |  --  |  --  |      |      |      |
+ * |      |      |      |  --  |  --  |    POINT    |  --  |  --  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_MOV] = LAYOUT_planck_mit( \
+[_MOVE] = LAYOUT_planck_mit( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, x,       x,       x,       x,       x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, x,       _______, \
+  UNWIND,  x,       x,       x,       x,       x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, x,       _______, \
   x,       x,       x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  x,       x, \
-  _______, _______, _______, x,       x,          UNWIND,        x,       x,       _______, _______, _______ \
+  _______, _______, _______, x,       x,         POINT,          x,       x,       _______, _______, _______ \
 ),
 
 /* Mouse control
  * ,-----------------------------------------------------------------------------------.
  * |      |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |  --  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      | Btn1 | Btn2 | Btn3 | Btn4 | Btn5 |  MsL | MsD  | MsU  | MsR  |  --  |      |
+ * |UNWIND| Btn1 | Btn2 | Btn3 | Btn4 | Btn5 |  MsL | MsD  | MsU  | MsR  |  --  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |  --  |  --  |  --  |  --  |  --  |  --  |  WhL | WhD  | WhU  | WhR  |  --  |  --  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |  --  |  --  |    UNWIND   |  --  |  --  |      |      |      |
+ * |      |      |      |  --  |  --  |     MOVE    |  --  |  --  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_MOU] = LAYOUT_planck_mit( \
+[_POINT] = LAYOUT_planck_mit( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, _______, \
+  UNWIND,  KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, _______, \
   x,       x,       x,       x,       x,       x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       x, \
-  _______, _______, _______, x,       x,           UNWIND,       x,       x,       _______, _______, _______ \
+  _______, _______, _______, x,       x,           MOVE,         x,       x,       _______, _______, _______ \
 ),
 
 /* Quick control
@@ -176,31 +150,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |  Alt |  Cmd |  --  |  --  |  --  | Left | Down |  Up  | Right|  --  |  --  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  --  |  --  |  --  |  --  |  --  | Home | PgDn | PgUp | End  |  --  |  Del |
+ * |      |  --  |  --  |  --  |  --  |  --  | Home | PgDn | PgUp | End  |  --  |  --  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |  --  |  --  |             |  --  |  --  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_QUICK_CONTROL] = LAYOUT_planck_mit( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, KC_LALT, KC_LGUI, x,       _______, x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, MOV, \
+  _______, KC_LALT, KC_LGUI, x,       _______, x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, _______, \
   x,       x,       x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_DEL,  _______, \
   _______, _______, _______, x,       KC_LCTL,   _______,        x,       x,       _______, _______, _______ \
 ),
-
-[_QUICK_GO] = LAYOUT_planck_mit( \
-  _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, x,       x,       x,       x,       _______, S(KC_TAB),KC_GRV, S(KC_GRV),KC_TAB, KC_ESC,  _______, \
-  x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, _______, _______, x,       x,         _______,        x,       x,       _______, _______, _______ \
-),
-
-/* [_QUICK_MOVE] = LAYOUT_planck_mit( \ */
-/*   _______, x,       x,       x,       _______, x,       x,       x,       x,       x,       x,       _______, \ */
-/*   _______, x,       x,       x,       x,       x,   C(S(KC_TAB)),C(KC_TAB),C(S(KC_TAB)),C(KC_TAB),   _______, _______, \ */
-/*   x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \ */
-/*   _______, _______, _______, x,       x,            x,           x,       x,       _______, _______, _______ \ */
-/* ), */
 
 /* Quick mouse
  * ,-----------------------------------------------------------------------------------.
@@ -215,9 +175,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QUICK_POINT] = LAYOUT_planck_mit( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, MOU, \
+  _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, _______, \
   x,       x,       x,       x,       x,       x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       x, \
   _______, _______, _______, x,       x,           x,            x,       x,       _______, _______, _______ \
+),
+
+[_QUICK_GO] = LAYOUT_planck_mit( \
+  _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
+  _______, x,       x,       x,       x,       _______, S(KC_TAB),KC_GRV, S(KC_GRV),KC_TAB, KC_ESC,  _______, \
+  x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
+  _______, _______, _______, x,       x,         _______,        x,       x,       _______, _______, _______ \
 )
 
 };
@@ -225,27 +192,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define NO_CONTROL 0
 
 int control_layer = NO_CONTROL;
-int default_layer = _MOD1;
+int default_layer = _MODE1;
 bool is_ext_layer_on = false;
 bool is_ext_layer_pristine = false;
 bool is_px_key_on = false;
 bool is_gui_on = false;
 
-#define LAYER_ON(l_on, l_off_1, l_off_2, l_off_3, l_off_4, l_off_5) layer_off(l_off_1); layer_off(l_off_2); layer_off(l_off_3); layer_off(l_off_4); layer_off(l_off_5); layer_on(l_on); control_layer = l_on == _QWERTY ? NO_CONTROL : l_on;
+int layer_ids[] = {
+  _MODE1
+  , _EXT
+  , _CMD
+  , _ADJUST
+  , _MOVE
+  , _POINT
+  , _QUICK_CONTROL
+  , _QUICK_POINT
+  , _QUICK_GO
+};
 
-void keyboard_post_init_user(void) {
+void
+keyboard_post_init_user(void) {
   default_layer_set(1UL << default_layer);
 }
 
+void
+stall_layer(int layer_id_to_turn_on) {
+  unsigned int index, a;
+  for (index = 0; index < sizeof layer_ids / sizeof *layer_ids; index++) {
+    a = layer_ids[index];
+    layer_off(a);
+  }
+  layer_on(layer_id_to_turn_on);
+  control_layer = layer_id_to_turn_on == _MODE1 ? NO_CONTROL : layer_id_to_turn_on;
+}
 
-uint32_t layer_state_set_user(uint32_t state) {
+uint32_t
+layer_state_set_user(uint32_t state) {
   switch (biton32(state)) {
   case _QUICK_GO:
     register_code(KC_LGUI);
     is_gui_on = true;
     break;
   default:
-    /* if (keyboard_report->mods & MOD_BIT(KC_LGUI)) { */
     if (is_gui_on) {
       unregister_code(KC_LGUI);
       is_gui_on = false;
@@ -255,23 +243,13 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 }
 
-/* uint16_t get_tapping_term(uint16_t keycode) { */
-/*   switch (keycode) { */
-/*     case LCTL_T(KC_SPACE): */
-/*       return TAPPING_TERM << 1; */
-/*     default: */
-/*       return TAPPING_TERM; */
-/*   } */
-/* } */
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_record_dynamic_macro(keycode, record)) {
-    return false;
-  }
+bool
+process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case PX_SPACE:
     if (record->event.pressed) {
       if (is_ext_layer_on && is_ext_layer_pristine) {
+        // emit tmux prefix key CTRL+SPACE
         register_code(KC_LCTRL);
         tap_code(KC_SPACE);
         is_px_key_on = true;
@@ -304,31 +282,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     update_tri_layer(_EXT, _CMD, _ADJUST);
     return false;
-  case MOV:
-    if (record->event.pressed && control_layer != MOV) {
-      LAYER_ON(_MOV, _EXT, _CMD, _ADJUST, _MOU, _QWERTY);
+  case MOVE:
+    if (record->event.pressed && control_layer != _MOVE) {
+      stall_layer(_MOVE);
     }
     return false;
-  case MOU:
-    if (record->event.pressed && control_layer != MOU) {
-      LAYER_ON(_MOU, _EXT, _CMD, _ADJUST, _MOV, _QWERTY);
+  case POINT:
+    if (record->event.pressed && control_layer != _POINT) {
+      stall_layer(_POINT);
     }
     return false;
   case UNWIND:
     if (record->event.pressed) {
-      LAYER_ON(_QWERTY, _EXT, _CMD, _ADJUST, _MOV, _MOU);
-    }
-    return false;
-  case DLC_1:
-    if (record->event.pressed) {
-      default_layer = _QWERTY;
-      default_layer_set(1UL << default_layer);
-    }
-    return false;
-  case DLC_2:
-    if (record->event.pressed) {
-      default_layer = _MOD1;
-      default_layer_set(1UL << default_layer);
+      stall_layer(_MODE1);
     }
     return false;
   default:
