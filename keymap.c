@@ -9,7 +9,6 @@ enum custom_layers {
   , _POINT
   , _QUICK_CONTROL
   , _QUICK_POINT
-  , _QUICK_GO
 };
 
 enum custom_keycodes {
@@ -32,7 +31,8 @@ enum custom_keycodes {
 
 #define QC_R LT(_QUICK_CONTROL, KC_R)
 #define QC_C LT(_QUICK_POINT, KC_C)
-#define QUICK_GO MO(_QUICK_GO)
+
+#define MC_PRFX LCTL(KC_SPACE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_1,    KC_2,    KC_3,    KC_4,    x,       x,       KC_DQUO, KC_LBRC, KC_RBRC, KC_BSLS, _______, \
   _______, KC_5,    KC_6,    KC_7,    KC_8,    KC_0,    KC_SCLN, KC_UNDS, KC_LPRN, KC_RPRN, KC_COLN, _______, \
   KC_DOT,  KC_9,    KC_PMNS, KC_PPLS, KC_0,    x,       KC_GRV,  KC_MINS, KC_EQL,  KC_QUOT, KC_SLSH, _______, \
-  _______, _______, _______, _______, QUICK_GO,   PX_SPACE,    G(KC_ESC), _______, _______, _______, _______ \
+  _______, _______, _______, _______, MC_PRFX,    PX_SPACE,      MC_PRFX, _______, _______, _______, _______ \
 ),
 
 /* Command keys
@@ -178,13 +178,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, _______, \
   x,       x,       x,       x,       x,       x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       x, \
   _______, _______, _______, x,       x,           x,            x,       x,       _______, _______, _______ \
-),
-
-[_QUICK_GO] = LAYOUT_planck_mit( \
-  _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, x,       x,       x,       x,       _______, S(KC_TAB),KC_GRV, S(KC_GRV),KC_TAB, KC_ESC,  _______, \
-  x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
-  _______, _______, _______, x,       x,         _______,        x,       x,       _______, _______, _______ \
 )
 
 };
@@ -196,7 +189,6 @@ int default_layer = _MODE1;
 bool is_ext_layer_on = false;
 bool is_ext_layer_pristine = false;
 bool is_px_key_on = false;
-bool is_gui_on = false;
 
 int layer_ids[] = {
   _MODE1
@@ -207,7 +199,6 @@ int layer_ids[] = {
   , _POINT
   , _QUICK_CONTROL
   , _QUICK_POINT
-  , _QUICK_GO
 };
 
 void
@@ -224,23 +215,6 @@ stall_layer(int layer_id_to_turn_on) {
   }
   layer_on(layer_id_to_turn_on);
   control_layer = layer_id_to_turn_on == _MODE1 ? NO_CONTROL : layer_id_to_turn_on;
-}
-
-uint32_t
-layer_state_set_user(uint32_t state) {
-  switch (biton32(state)) {
-  case _QUICK_GO:
-    register_code(KC_LGUI);
-    is_gui_on = true;
-    break;
-  default:
-    if (is_gui_on) {
-      unregister_code(KC_LGUI);
-      is_gui_on = false;
-    }
-    break;
-  }
-  return state;
 }
 
 bool
