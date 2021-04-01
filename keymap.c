@@ -18,7 +18,7 @@ enum custom_keycodes {
   , MOVE
   , POINT
   , UNWIND
-  , PX_SPACE
+  /* , PX_SPACE */
   , PRFX
 };
 
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_1,    KC_2,    KC_3,    KC_4,    x,       x,       KC_DQUO, KC_LBRC, KC_RBRC, KC_BSLS, _______, \
   _______, KC_5,    KC_6,    KC_7,    KC_8,    KC_0,    KC_SCLN, KC_UNDS, KC_LPRN, KC_RPRN, KC_COLN, _______, \
   KC_DOT,  KC_9,    KC_PMNS, KC_PPLS, KC_0,    x,       KC_GRV,  KC_MINS, KC_EQL,  KC_QUOT, KC_SLSH, _______, \
-  _______, _______, _______, _______, PRFX,       PX_SPACE,      PRFX,    _______, _______, _______, _______ \
+  _______, _______, _______, _______, PRFX,       _______,       PRFX,    _______, _______, _______, _______ \
 ),
 
 /* Command keys
@@ -189,9 +189,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 int control_layer = NO_CONTROL;
 int default_layer = _MODE1;
-bool is_ext_layer_on = false;
-bool is_ext_layer_pristine = false;
-bool is_px_key_on = false;
 
 int layer_ids[] = {
   _MODE1
@@ -223,24 +220,6 @@ stall_layer(int layer_id_to_turn_on) {
 bool
 process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-  case PX_SPACE:
-    if (record->event.pressed) {
-      if (is_ext_layer_on && is_ext_layer_pristine) {
-        // emit tmux prefix key CTRL+SPACE
-        register_code(KC_LCTRL);
-        tap_code(KC_SPACE);
-        is_px_key_on = true;
-      } else {
-        tap_code(KC_SPACE);
-      }
-      is_ext_layer_pristine = false;
-    } else {
-      if (is_px_key_on) {
-        unregister_code(KC_LCTRL);
-        is_px_key_on = false;
-      }
-    }
-    return false;
   case PRFX:
     if (record->event.pressed) {
       register_code(KC_LCTRL);
@@ -252,10 +231,8 @@ process_record_user(uint16_t keycode, keyrecord_t *record) {
   case EXT:
     if (record->event.pressed) {
       layer_on(_EXT);
-      is_ext_layer_pristine = is_ext_layer_on = true;
     } else {
       layer_off(_EXT);
-      is_ext_layer_pristine = is_ext_layer_on = false;
     }
     update_tri_layer(_EXT, _CMD, _ADJUST);
     return false;
@@ -282,9 +259,9 @@ process_record_user(uint16_t keycode, keyrecord_t *record) {
       stall_layer(_MODE1);
     }
     return false;
-  default:
-    if (is_ext_layer_on)
-      is_ext_layer_pristine = false;
+  /* default: */
+    /* if (is_ext_layer_on) */
+    /*   is_ext_layer_pristine = false; */
   }
   return true;
 }
