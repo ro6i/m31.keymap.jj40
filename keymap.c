@@ -165,15 +165,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |  Alt |  Cmd |  --  |  --  |  --  | Left | Down |  Up  | Right|  --  |  --  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  --  |  --  |  --  |  --  |  --  | Home | PgDn | PgUp | End  |  --  |  --  |
+ * |      |  --  |  --  |  --  |  --  |  --  | Home | PgDn | PgUp | End  | Caps |  --  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |  --  |  --  |      |      |  --  |  --  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_QUICK_CONTROL] = LAYOUT_planck_grid( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       KC_DEL, \
-  _______, KC_LALT, KC_LGUI, MO(_Q_P),_______, x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, _______, \
-  x,       x,       x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  x,       _______, \
+  _______, KC_LALT, KC_LGUI, MO(_Q_P),_______, x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
+  _______, _______, x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_CAPS, _______, \
   _______, _______, _______, x,       x,       _______, _______, x,       x,       _______, _______, _______ \
 ),
 
@@ -191,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QUICK_POINT] = LAYOUT_planck_grid( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   _______, KC_BTN1, KC_BTN2, _______, MO(_Q_R),x,       KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, _______, \
-  x,       x,       x,       x,       x,       x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       x, \
+  _______, _______, x,       x,       x,       x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, _______, _______, \
   _______, _______, _______, x,       KC_BTN1, KC_BTN3, KC_BTN3, KC_BTN2, x,       _______, _______, _______ \
 )
 
