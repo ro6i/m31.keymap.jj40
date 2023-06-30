@@ -249,7 +249,6 @@ process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       pfxl_pressed = 0;
       if (synthetic_layer_l_on) layer_off(_EXTL);
-      if (synthetic_layer_r_on) layer_off(_EXTR);
       synthetic_layer_l_on = 0;
     }
     return false;
@@ -261,7 +260,6 @@ process_record_user(uint16_t keycode, keyrecord_t *record) {
       pfxr_pressed = 1;
     } else {
       pfxr_pressed = 0;
-      if (synthetic_layer_l_on) layer_off(_EXTL);
       if (synthetic_layer_r_on) layer_off(_EXTR);
       synthetic_layer_r_on = 0;
     }
