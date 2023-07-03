@@ -21,7 +21,6 @@ enum custom_keycodes {
   , MOVE
   , POINT
   , UNWIND
-  /* , PX_SPACE */
   , PF_L
   , PF_R
 };
@@ -76,14 +75,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, x,       x,       x,       x,       x,       x,       KC_DQUO, KC_LBRC, KC_RBRC, KC_BSLS, KC_SCLN, \
   _______, x,       x,       MO(_Q_P),MO(_Q_R),x,       x,       KC_UNDS, KC_LPRN, KC_RPRN, KC_COLN, _______, \
   _______, _______, x,       x,       x,       x,       KC_GRV,  KC_MINS, KC_EQL,  KC_QUOT, KC_SLSH, _______, \
-  _______, _______, _______, _______, _______, _______, _______, PF_R,    _______, _______, _______, _______ \
+  _______, _______, _______, _______, _______, _______, _______, PF_R,    _______, _______, _______, _______  \
 ),
 
 [_EXTR] = LAYOUT_planck_grid( \
   _______, KC_1,    KC_2,    KC_3,    KC_4,    x,       x,       KC_DQUO, KC_LBRC, KC_RBRC, KC_BSLS, _______, \
   _______, KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    x,       KC_UNDS, KC_LPRN, KC_RPRN, KC_COLN, _______, \
   _______, _______, KC_PMNS, KC_PPLS, KC_DOT,  x,       KC_GRV,  KC_MINS, KC_EQL,  KC_QUOT, _______, _______, \
-  _______, _______, _______, _______, PF_L,    KC_0,    _______, _______, _______, _______, _______, _______ \
+  _______, _______, _______, _______, PF_L,    KC_0,    _______, _______, _______, _______, _______, _______  \
 ),
 
 /* Command keys
@@ -242,10 +241,12 @@ process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       pfxl_pressed = 1;
       register_code(KC_LCTL);
-      tap_code(KC_SPACE);
-      unregister_code(KC_LCTL);
+      register_code(KC_SPACE);
+      unregister_code(KC_SPACE);
     } else {
       pfxl_pressed = 0;
+      /* unregister_code(KC_SPACE); */
+      unregister_code(KC_LCTL);
       if (synthetic_layer_l_on) {
         synthetic_layer_l_on = 0;
         layer_off(_EXTL);
@@ -256,10 +257,12 @@ process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       pfxr_pressed = 1;
       register_code(KC_LCTL);
-      tap_code(KC_SPACE);
-      unregister_code(KC_LCTL);
+      register_code(KC_SPACE);
+      unregister_code(KC_SPACE);
     } else {
       pfxr_pressed = 0;
+      /* unregister_code(KC_SPACE); */
+      unregister_code(KC_LCTL);
       if (synthetic_layer_r_on) {
         synthetic_layer_r_on = 0;
         layer_off(_EXTR);
@@ -272,6 +275,8 @@ process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       layer_off(_EXTL);
       if (pfxr_pressed) {
+        /* unregister_code(KC_SPACE); */
+        unregister_code(KC_LCTL);
         synthetic_layer_r_on = 1;
         layer_on(_EXTR);
       }
@@ -284,6 +289,8 @@ process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       layer_off(_EXTR);
       if (pfxl_pressed) {
+        /* unregister_code(KC_SPACE); */
+        unregister_code(KC_LCTL);
         synthetic_layer_l_on = 1;
         layer_on(_EXTL);
       }
