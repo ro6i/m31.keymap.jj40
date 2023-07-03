@@ -40,18 +40,16 @@ enum custom_keycodes {
 #define _Q_P _QUICK_POINT
 
 #define SPCTL LCTL_T(KC_SPACE)
-#define SPSFTAB LSFT_T(KC_TAB)
-#define SPSFBSP LSFT_T(KC_BSPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Mode 1
  * ,-----------------------------------------------------------------------------------.
- * | Shift|   Q  |   W  |   D  |   F  |      |      |   M  |   I  |   O  |   P  |Shift |
+ * | Tab  |   Q  |   W  |   D  |   F  |   Z  |   X  |   M  |   I  |   O  |   P  | Bspc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Esc  |   A  |   S  |   E  |   R  |   G  |   H  |   J  |   K  |   L  |   T  |Enter |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Tab  |   Z  |   Y  |   U  |   C  |   V  |   B  |   N  |   ,  |   .  |   X  | Bspc |
+ * | Tab  | Shift|   Y  |   U  |   C  |   V  |   B  |   N  |   ,  |   .  | Shift| Rsft |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | Alt  | GUI  | CMD  | EXT  | Space/Ctrl  | EXT  | CMD  | GUI  |  Alt | Ctrl |
  * `-----------------------------------------------------------------------------------'
@@ -242,26 +240,30 @@ process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case PF_L:
     if (record->event.pressed) {
+      pfxl_pressed = 1;
       register_code(KC_LCTL);
       tap_code(KC_SPACE);
       unregister_code(KC_LCTL);
-      pfxl_pressed = 1;
     } else {
       pfxl_pressed = 0;
-      if (synthetic_layer_l_on) layer_off(_EXTL);
-      synthetic_layer_l_on = 0;
+      if (synthetic_layer_l_on) {
+        synthetic_layer_l_on = 0;
+        layer_off(_EXTL);
+      }
     }
     return false;
   case PF_R:
     if (record->event.pressed) {
+      pfxr_pressed = 1;
       register_code(KC_LCTL);
       tap_code(KC_SPACE);
       unregister_code(KC_LCTL);
-      pfxr_pressed = 1;
     } else {
       pfxr_pressed = 0;
-      if (synthetic_layer_r_on) layer_off(_EXTR);
-      synthetic_layer_r_on = 0;
+      if (synthetic_layer_r_on) {
+        synthetic_layer_r_on = 0;
+        layer_off(_EXTR);
+      }
     }
     return false;
   case EXTL:
@@ -270,8 +272,8 @@ process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       layer_off(_EXTL);
       if (pfxr_pressed) {
-        layer_on(_EXTR);
         synthetic_layer_r_on = 1;
+        layer_on(_EXTR);
       }
     }
     update_tri_layer(_EXTL, _CMD, _ADJUST);
@@ -282,8 +284,8 @@ process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       layer_off(_EXTR);
       if (pfxl_pressed) {
-        layer_on(_EXTL);
         synthetic_layer_l_on = 1;
+        layer_on(_EXTL);
       }
     }
     update_tri_layer(_EXTR, _CMD, _ADJUST);
@@ -319,9 +321,6 @@ process_record_user(uint16_t keycode, keyrecord_t *record) {
       stall_layer(_MODE1);
     }
     return false;
-  /* default: */
-    /* if (is_ext_layer_on) */
-    /*   is_ext_layer_pristine = false; */
   }
   return true;
 }

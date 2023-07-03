@@ -6,9 +6,9 @@
 #define PREVENT_STUCK_MODIFIERS
 
 // magic mode not used
-#pragma push_macro("IS_COMMAND")
-#undef IS_COMMAND
-#define IS_COMMAND() false
+/* #pragma push_macro("IS_COMMAND") */
+/* #undef IS_COMMAND */
+/* #define IS_COMMAND() false */
 
 /* #define PERMISSIVE_HOLD */
 /* #define TAPPING_TERM_PER_KEY */
