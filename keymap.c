@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  | CMD  | EXT  | Space/Ctrl  | EXT  | CMD  | GUI  |  Alt | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
-[_MODE1] = LAYOUT_planck_grid( \
+[_MODE1] = LAYOUT_ortho_4x12( \
   KC_TAB,  KC_Q,    KC_W,    KC_D,    KC_F,    KC_Z,    KC_X,    KC_M,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
   KC_ESC,  KC_A,    KC_S,    KC_E,    KC_R,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_T,    KC_ENT, \
   KC_LSFT, KC_LSFT, KC_Y,    KC_U,    KC_C,    KC_V,    KC_B,    KC_N,    KC_COMM, KC_DOT,  KC_RSFT, KC_RSFT, \
@@ -71,14 +71,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_EXTL] = LAYOUT_planck_grid( \
+[_EXTL] = LAYOUT_ortho_4x12( \
   _______, x,       x,       x,       x,       x,       x,       KC_DQUO, KC_LBRC, KC_RBRC, KC_BSLS, KC_SCLN, \
   _______, x,       x,       MO(_Q_P),MO(_Q_R),x,       x,       KC_UNDS, KC_LPRN, KC_RPRN, KC_COLN, _______, \
   _______, _______, x,       x,       x,       x,       KC_GRV,  KC_MINS, KC_EQL,  KC_QUOT, KC_SLSH, _______, \
   _______, _______, _______, _______, _______, _______, _______, PF_R,    _______, _______, _______, _______  \
 ),
 
-[_EXTR] = LAYOUT_planck_grid( \
+[_EXTR] = LAYOUT_ortho_4x12( \
   _______, KC_1,    KC_2,    KC_3,    KC_4,    x,       x,       KC_DQUO, KC_LBRC, KC_RBRC, KC_BSLS, _______, \
   _______, KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    x,       KC_UNDS, KC_LPRN, KC_RPRN, KC_COLN, _______, \
   _______, _______, KC_PMNS, KC_PPLS, KC_DOT,  x,       KC_GRV,  KC_MINS, KC_EQL,  KC_QUOT, _______, _______, \
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 //_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F13,  x,       DM1_P,   DM2_P,   KC_DEL,  KC_PAUS, _______,
-[_CMD] = LAYOUT_planck_grid( \
+[_CMD] = LAYOUT_ortho_4x12( \
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F13,  x,       x,       x,       KC_DEL,  KC_PAUS, _______, \
   _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F14,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, _______, \
   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F15,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_APP,  _______, \
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 //_______, DM1_R,   DM2_R,   x,       DM_STOP, x,       x,       x,       x,       x,       x,       _______,
-[_ADJUST] = LAYOUT_planck_grid( \
+[_ADJUST] = LAYOUT_ortho_4x12( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   _______, x,       x,       x,       x,       x,       x,       MOVE,    x,       x,       x,       _______, \
   x,       x,       KC_MUTE, KC_VOLD, KC_VOLU, x,       x,       POINT,   x,       x,       x,       KC_SYRQ, \
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |  --  |  --  |    POINT    |  --  |  --  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_MOVE] = LAYOUT_planck_grid( \
+[_MOVE] = LAYOUT_ortho_4x12( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   UNWIND,  x,       x,       x,       x,       x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, x,       _______, \
   x,       x,       x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  x,       x, \
@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |  --  |  --  |     MOVE    |  --  |  --  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_POINT] = LAYOUT_planck_grid( \
+[_POINT] = LAYOUT_ortho_4x12( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   UNWIND,  KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, _______, \
   x,       x,       x,       x,       x,       x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, x,       x, \
@@ -170,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |  --  |  --  |      |      |  --  |  --  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_QUICK_CONTROL] = LAYOUT_planck_grid( \
+[_QUICK_CONTROL] = LAYOUT_ortho_4x12( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       KC_DEL, \
   _______, KC_LALT, KC_LGUI, MO(_Q_P),_______, x,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
   _______, _______, x,       x,       x,       x,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_CAPS, _______, \
@@ -188,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |  --  |  --  |      |      |  --  |  --  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_QUICK_POINT] = LAYOUT_planck_grid( \
+[_QUICK_POINT] = LAYOUT_ortho_4x12( \
   _______, x,       x,       x,       x,       x,       x,       x,       x,       x,       x,       _______, \
   _______, KC_BTN1, KC_BTN2, _______, MO(_Q_R),x,       KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, _______, \
   _______, _______, x,       x,       x,       x,       KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, _______, _______, \
@@ -221,6 +221,7 @@ int layer_ids[] = {
 void
 keyboard_post_init_user(void) {
   default_layer_set(1UL << default_layer);
+  rgblight_disable_noeeprom();
 }
 
 void
